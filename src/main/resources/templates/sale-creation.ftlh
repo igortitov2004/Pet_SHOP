@@ -4,6 +4,7 @@
     <title>Cоздание продажи</title>
 </head>
 <body>
+
 <#if sale.sold_feedsModelList??>
     <table border="1">
         <#list sale.sold_feedsModelList as soldFeed>
@@ -35,6 +36,11 @@
         </#list>
     </select><br><br>
     Количество:<input type="number" required min="1"  step="1" max="500" name="amount"/><br><br>
+    <#if errFeed??>
+        <div style="color: red">
+            Лимит покупки - ${amount}
+        </div>
+    </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Добавить"/>
 </form>
@@ -45,8 +51,14 @@
         <#list accessor as accessor>
             <option value="${accessor.id_accessories}"> ${accessor.nameOfAccessor} </option>
         </#list>
+
     </select><br><br>
-    Количество:<input type="number" required min="1" step="1" max="200" name="amount"/><br><br>
+    Количество:<input type="number" required min="1" step="1"  name="amount"/><br><br>
+    <#if errAccessor??>
+        <div style="color: red">
+           Лимит покупки - ${amount}
+        </div>
+    </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Добавить"/>
 </form>

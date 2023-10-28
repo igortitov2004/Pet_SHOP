@@ -7,14 +7,13 @@ import com.example.shop.repositories.StaffRepository;
 import com.example.shop.services.SalesService;
 import com.example.shop.services.StaffService;
 import com.example.shop.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import java.util.Optional;
 public class StaffController {
     private final StaffService staffService;
     private final SalesService salesService;
-    private final StaffRepository staffRepository;
     private final UserService userService;
 
 
@@ -37,7 +35,6 @@ public class StaffController {
         model.addAttribute("staffs",staffService.listStaffs(fullName));
         model.addAttribute("sales",salesService.listSales(null));
         model.addAttribute("user", user);
-
         return "staff";
     }
 
@@ -48,14 +45,12 @@ public class StaffController {
         return "edit-staff";
     }
     @PostMapping("/staff/{id_staff}/edit")
-    public String editStaff(@PathVariable(value = "id_staff") Long id_staff ,StaffModel staffModel){
-        StaffModel staff= staffService.getStaffById(id_staff);
-        staff.setFullName(staffModel.getFullName());
-        staff.setNum_of_passport(staffModel.getNum_of_passport());
-        staff.setTelNumber(staffModel.getTelNumber());
-        staff.setExperience(staffModel.getExperience());
-        staff.setJob_title(staffModel.getJob_title());
-        staffRepository.save(staff);
+    public String editStaff(@PathVariable(value = "id_staff") Long id_staff , @Valid @ModelAttribute("staff") StaffModel staffModel,BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("err",bindingResult.hasErrors());
+            return "edit-staff";
+        }
+        staffService.update(id_staff,staffModel);
         return "redirect:/staff";
     }
 
@@ -70,25 +65,33 @@ public class StaffController {
         model.addAttribute("user",userService.getUserByPrincipal(principal));
         return "staff-info";
     }
-    @PostMapping("/staff/create")
-    public String createStaff(StaffModel staff, Model model){
-       if(!staffService.isStaff(staff)){
-           model.addAttribute("staffs",staffService.listStaffs(null));
-           model.addAttribute("sales",salesService.listSales(null));
-           model.addAttribute("user", user);
-           model.addAttribute("errorMessage","Работник с номером "+staff.getTelNumber()+" уже существует!!!");
-           return "staff";
-       }
 
+    @GetMapping("/staff/create")
+    public String startCreateStaff(@ModelAttribute("staff") StaffModel staff, Model model){
+        staff.setFullName("");
+        staff.setNum_of_passport("");
+        staff.setTelNumber("+375");
+        staff.setExperience(0);
+        staff.setJob_title("");
+        return "staff-creation";
+    }
+    @PostMapping("/staff/create")
+    public String createStaff(@Valid @ModelAttribute("staff")  StaffModel staff, BindingResult bindingResult,Model model){
+       if(bindingResult.hasErrors()){
+           model.addAttribute("err",bindingResult.hasErrors());
+           return "staff-creation";
+       }
+       if(!staffService.isStaff(staff)){
+           model.addAttribute("errorMessage","Работник с номером "+staff.getTelNumber()+" уже существует!!!");
+           return "staff-creation";
+       }
         staffService.saveStaff(staff);
         return "redirect:/staff";
-
     }
 
     @PostMapping("/staff/delete/{id_staff}")
     public String deleteStaff(@PathVariable Long id_staff){
         staffService.deleteStaff(id_staff);
         return "redirect:/staff";
-
     }
 }

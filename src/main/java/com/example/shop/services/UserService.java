@@ -2,7 +2,7 @@ package com.example.shop.services;
 
 import com.example.shop.models.StaffModel;
 import com.example.shop.models.User;
-import com.example.shop.models.enums.Role;
+import com.example.shop.enums.Role;
 import com.example.shop.repositories.StaffRepository;
 import com.example.shop.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

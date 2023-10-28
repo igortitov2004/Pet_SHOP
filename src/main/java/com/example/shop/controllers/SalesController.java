@@ -1,7 +1,9 @@
 package com.example.shop.controllers;
 
+import com.example.shop.models.FeedsModel;
 import com.example.shop.models.SalesModel;
 
+import com.example.shop.models.Sold_feedsModel;
 import com.example.shop.models.StaffModel;
 import com.example.shop.services.*;
 import lombok.RequiredArgsConstructor;
@@ -9,14 +11,14 @@ import org.springframework.cglib.core.Local;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -63,22 +65,42 @@ public class SalesController {
     }
     @GetMapping("/sales/create")
     public String saleCreation(Model model){
+        List<FeedsModel> list = new ArrayList<>(feedsService.listFeeds(null));
+        for (Sold_feedsModel soldFeed: sale.getSold_feedsModelList()) {
+            list=list.stream().filter(o-> !Objects.equals(o.getNameOfFeed(), soldFeed.getFeed().getNameOfFeed())).collect(Collectors.toList());
+        }
         model.addAttribute("sale", sale);
-        model.addAttribute("feed", feedsService.listFeeds(null));
+        model.addAttribute("feed", list);
         model.addAttribute("accessor", accessoriesService.listAccessories(null));
-
 //        model.addAttribute("staffs", staffService.listStaffs(null));
+
         return "sale-creation";
     }
 
     @PostMapping("/sales/addFeed")
-    public String addFeedInSale(Long id_feeds, int amount){
+    public String addFeedInSale(Long id_feeds, int amount,Model model){
+        if(amount>feedsService.getFeedById(id_feeds).getAmount_of_feeds()){
+            model.addAttribute("sale", sale);
+            model.addAttribute("feed", feedsService.listFeeds(null));
+            model.addAttribute("accessor", accessoriesService.listAccessories(null));
+            model.addAttribute("amount",feedsService.getFeedById(id_feeds).getAmount_of_feeds());
+            model.addAttribute("errFeed",true);
+            return "sale-creation";
+        }
         sale=salesService.addFeedInSale(sale, feedsService.getFeedById(id_feeds),amount);
         return "redirect:/sales/create";
     }
 
     @PostMapping("/sales/addAccessor")
-    public String addAccessorInSale(Long id_accessories, int amount){
+    public String addAccessorInSale(Long id_accessories, int amount, Model model){
+        if(amount> accessoriesService.getAccessorById(id_accessories).getAmount_of_accessories()){
+            model.addAttribute("sale", sale);
+            model.addAttribute("feed", feedsService.listFeeds(null));
+            model.addAttribute("accessor", accessoriesService.listAccessories(null));
+            model.addAttribute("amount",accessoriesService.getAccessorById(id_accessories).getAmount_of_accessories());
+            model.addAttribute("errAccessor",true);
+            return "sale-creation";
+        }
         sale=salesService.addAccessorInSale(sale, accessoriesService.getAccessorById(id_accessories),amount);
         return "redirect:/sales/create";
     }

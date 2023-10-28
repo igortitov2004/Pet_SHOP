@@ -16,21 +16,23 @@ public class StaffService {
         return staffRepository.findAll();
     }
     public void saveStaff(StaffModel staff){
-
-       log.info("Saving new {}",staff);
        staffRepository.save(staff);
     }
-
+    public void update(Long id,StaffModel staffModel){
+        StaffModel staff= getStaffById(id);
+        staff.setFullName(staffModel.getFullName());
+        staff.setNum_of_passport(staffModel.getNum_of_passport());
+        staff.setTelNumber(staffModel.getTelNumber());
+        staff.setExperience(staffModel.getExperience());
+        staff.setJob_title(staffModel.getJob_title());
+        staffRepository.save(staff);
+    }
     public boolean isStaff(StaffModel staff){
-        if(staffRepository.findByTelNumber(staff.getTelNumber())!=null){
+        if(staffRepository.findByTelNumber(staff.getTelNumber())!=null ){
             return false;
         }
-
         return true;
-
     }
-
-
     public void deleteStaff( Long id_staff){
         staffRepository.deleteById(id_staff);
     }

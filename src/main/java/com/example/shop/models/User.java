@@ -1,6 +1,6 @@
 package com.example.shop.models;
 
-import com.example.shop.models.enums.Role;
+import com.example.shop.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+
 @Entity
 @Table(name="users")
 @AllArgsConstructor

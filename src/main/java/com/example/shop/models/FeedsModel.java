@@ -1,6 +1,7 @@
 package com.example.shop.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class FeedsModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_feeds")
     private Long id_feeds;
+
     @Column(name="name_of_feed")
     private String nameOfFeed;
 //    @Column(name="animal_id_for_feed")

@@ -45,7 +45,6 @@ public class FeedsController {
     public String deleteAccessor(@PathVariable Long id_feeds){
         feedsService.deleteFeed(id_feeds);
         return "redirect:/feeds";
-
     }
     @GetMapping("/feeds/{id_feeds}/edit")
     public String startEditFeed(@PathVariable(value = "id_feeds") Long id_feeds ,Model model){
@@ -54,9 +53,9 @@ public class FeedsController {
     }
     @PostMapping("/feeds/{id_feeds}/edit")
     public String editFeed(@PathVariable(value = "id_feeds") Long id_feeds , FeedsModel feedsModel){
-        FeedsModel feed=feedsService.getFeedById(id_feeds) ;
+        FeedsModel feed=feedsService.getFeedById(id_feeds);
         feed.setPrice_of_feed(feedsModel.getPrice_of_feed());
-             feedsRepository.save(feed);
+        feedsRepository.save(feed);
         return "redirect:/feeds";
     }
 }

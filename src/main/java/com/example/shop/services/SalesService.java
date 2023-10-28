@@ -4,6 +4,7 @@ import com.example.shop.models.*;
 import com.example.shop.repositories.SalesRepository;
 import com.example.shop.repositories.SoldAccessorRepository;
 import com.example.shop.repositories.SoldFeedsRepository;
+import jakarta.validation.constraints.Max;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class SalesService {
         sale.getSold_feedsModelList().add(soldFeed);
         return sale;
     }
-    public SalesModel addAccessorInSale(SalesModel sale, AccessoriesModel accessor,int amount){
+    public SalesModel addAccessorInSale(SalesModel sale, AccessoriesModel accessor, int amount){
         Sold_accessoriesModel soldAccessor=new Sold_accessoriesModel();
         soldAccessor.setAccessor(accessor);
         soldAccessor.setAmount(amount);

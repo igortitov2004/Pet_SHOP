@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>SHOP</title>
     <hr>
@@ -33,25 +34,29 @@
 </#if>
 <hr>
 
-    <h3>Добавление сотрудника</h3>
-    <form action="/staff/create" method="post" enctype="multipart/form-data">
-        <div>ФИО:<input type="text" required name="fullName" minlength="5"/><br><br>
-            Номер паспорта:<input type="text" minlength="7" maxlength="10" required name="num_of_passport"/><br><br>
-            Номер телефона:<input type="text" required minlength="13" maxlength="20" name="telNumber"/><br><br>
-            Стаж работы:<input type="number" required max="50" name="experience"/><br><br>
-            Должность:  <select name="job_title" required>
-                <option>Выберите</option>
-                <option value="Продавец-кассир">Продавец-кассир </option>
-                <option value="Менеджер">Менеджер </option>
+<form action="/staff/create"  method="get" >
+    <input type="submit" value="Добавить работника">
+</form>
 
-            </select><br><br>
-        </div>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Добавить работника"/>
-    </form>
-<#if errorMessage??>
-    <h3 style="color: darkblue">${errorMessage}</h3>
-</#if>
+<#--    <h3>Добавление сотрудника</h3>-->
+<#--    <form action="/staff/create" method="post" enctype="multipart/form-data">-->
+<#--        <div>ФИО:<input type="text" value="${newStaff.fullName}" required name="fullName" /><br><br>-->
+<#--         -->
+<#--            Номер паспорта:<input type="text"  required name="num_of_passport"/><br><br>-->
+<#--            Номер телефона:<input type="text" required  name="telNumber"/><br><br>-->
+<#--            Стаж работы:<input type="number" required  name="experience"/><br><br>-->
+<#--            Должность:  <select name="job_title" required>-->
+<#--                <option>Выберите</option>-->
+<#--                <option value="Продавец-кассир">Продавец-кассир </option>-->
+<#--                <option value="Менеджер">Менеджер </option>-->
+<#--            </select><br><br>-->
+<#--        </div>-->
+<#--        <input type="hidden" name="_csrf" value="${_csrf.token}">-->
+<#--        <input type="submit" value="Добавить работника"/>-->
+<#--    </form>-->
+<#--<#if errorMessage??>-->
+<#--    <h3 style="color: darkblue">${errorMessage}</h3>-->
+<#--</#if>-->
 
 </body>
 </html>
