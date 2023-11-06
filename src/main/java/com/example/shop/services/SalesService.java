@@ -8,7 +8,12 @@ import jakarta.validation.constraints.Max;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -55,5 +60,12 @@ public class SalesService {
     }
     public SalesModel getSalesById(Long id_sales){
         return salesRepository.findById(id_sales).orElse(null);
+    }
+
+    public List<FeedsModel> getListOfAvailableFeeds(SalesModel sale, List<FeedsModel> list){
+        for (Sold_feedsModel soldFeed: sale.getSold_feedsModelList()) {
+            list=list.stream().filter(o-> !Objects.equals(o.getNameOfFeed(), soldFeed.getFeed().getNameOfFeed())).collect(Collectors.toList());
+        }
+        return list;
     }
 }

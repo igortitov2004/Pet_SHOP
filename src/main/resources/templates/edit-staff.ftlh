@@ -18,10 +18,10 @@
             <@spring.showErrors "<br>"/>
         </div>
     </#if>
-    Номер паспорта:<input type="text"  value="${staff.num_of_passport}" required name="num_of_passport"/><br>
+    Номер паспорта:<input type="text"  value="${staff.numOfPassport}" required name="numOfPassport"/><br>
     <#if err??>
         <br><div style="color: red">
-        <@spring.bind "staff.num_of_passport"/>
+        <@spring.bind "staff.numOfPassport"/>
         <@spring.showErrors "<br>"/>
     </div>
     </#if>

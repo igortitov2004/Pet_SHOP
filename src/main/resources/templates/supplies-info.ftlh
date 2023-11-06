@@ -23,7 +23,7 @@
                     </tr>
                 </#list>
             </table>
-        <#else> Оформленных кормов нет<br>
+        <#else> Оформленных кормов нет или корм удален<br>
         </#if>
         <#if supplies.supplied_accessoriesModelList?has_content>
             Оформленные аксессуары
@@ -42,7 +42,7 @@
                 </tr>
             </#list>
             </table>
-        <#else> Оформленных аксессуаров нет<br>
+        <#else> Оформленных аксессуаров нет или аксессуар удален<br>
         </#if>
 <hr>
 </body>

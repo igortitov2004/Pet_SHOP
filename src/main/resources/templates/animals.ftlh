@@ -46,25 +46,13 @@
 </#if>
 <br>
 <#if user.isManager()>
-    <form action="/breed/create" method="post" enctype="multipart/form-data">
-    <div style="display: inline-flex">Название породы:<input type="text" required name="breed"/>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <form action="/breed/create" method="get" >
         <input type="submit" value="Добавить породу"/></div>
 </form>
 <br>
-<form action="/animals/create" method="post" enctype="multipart/form-data">
-       Название:<input type="text" required name="kindOfAnimal"/><br><br>
-       Порода:  <select name="breed_id" required>
-           <option disabled SELECTED>Выберите<option>
-               <#list breeds as breed>
-           <option value="${breed.id_breeds}"> ${breed.breed}</option>
-           </#list>
-       </select><br><br>
-       Вес:     <input type="text" required name="weight_of_animal"/><br><br>
-       Возраст: <input type="number"  required name="age_of_animal"/><br><br>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-       <input type="submit" value="Добавить животное"/>
-</form>
+    <form action="/animals/create" method="get" >
+        <input type="submit" value="Добавить животное"/></div>
+    </form>
 </#if>
 
 </body>

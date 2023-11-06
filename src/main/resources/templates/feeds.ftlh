@@ -32,7 +32,11 @@
         <tr>
             <th>${feed.id_feeds}</th>
             <th>${feed.nameOfFeed}</th>
-            <th>${feed.animal_id_for_feed.kindOfAnimal}(${feed.animal_id_for_feed.breed_id.breed})</th>
+            <#if feed.animal_id_for_feed??>
+                <th>${feed.animal_id_for_feed.kindOfAnimal}(${feed.animal_id_for_feed.breed_id.breed})</th>
+            <#else> <th style="color: darkblue">Животное удалено</th>
+            </#if>
+
             <th>${feed.price_of_feed}</th>
             <th>${feed.weight_of_feed}</th>
             <th>${feed.manufacturer_of_feed}</th>
@@ -51,23 +55,9 @@
 </#if>
 <br>
 <#if user.isManager() || user.isCashier()>
-    <h3>Добавление корма</h3>
-<form action="/feeds/create" method="post" enctype="multipart/form-data">
-    Название:<input type="text" required name="nameOfFeed"/><br><br>
-    Животное:<select name="animal_id_for_feed" required>
-        <option disabled SELECTED>Выберите</option>
-        <#list animals as animal>
-            <option value="${animal.id_animals}"> ${animal.kindOfAnimal}: ${animal.breed_id.breed}</option>
-        </#list>
-    </select><br><br>
-    Стоимость:<input type="text"  required name="price_of_feed"/><br><br>
-    Вес:<input type="number" required name="weight_of_feed"/><br><br>
-    Производитель:<input type="text" required name="manufacturer_of_feed"/><br><br>
-    <input type="hidden" value="0" name="amount_of_feeds"/>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Добавить корм"/>
-</form>
+    <form action="/feeds/create" method="get">
+        <input type="submit" value="Добавить корм">
+    </form>
 </#if>
-
 </body>
 </html>

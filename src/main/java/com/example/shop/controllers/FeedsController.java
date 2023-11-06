@@ -6,14 +6,14 @@ import com.example.shop.models.StaffModel;
 import com.example.shop.repositories.FeedsRepository;
 import com.example.shop.services.AnimalsService;
 import com.example.shop.services.FeedsService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
 @Controller
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyAuthority('ROLE_DIRECTOR','ROLE_MANAGER','ROLE_CASHIER')")
@@ -26,7 +26,6 @@ public class FeedsController {
     @GetMapping("/feeds")
     public String feeds(@RequestParam(name = "nameOfFeed", required = false) String nameOfFeed, Model model){
         model.addAttribute("feeds", feedsService.listFeeds(nameOfFeed));
-        model.addAttribute("animals",animalsService.listAnimals(null));
         model.addAttribute("user", staffController.user);
         return "feeds";
     }
@@ -35,8 +34,25 @@ public class FeedsController {
         model.addAttribute("feeds", feedsService.getFeedById(id_feeds));
         return "feeds-info";
     }
+
+
+    @GetMapping("/feeds/create")
+    public String startCreateFeed(@ModelAttribute("newFeed") FeedsModel feed, Model model){
+        model.addAttribute("animals",animalsService.listAnimals(null));
+        feed.setAmount_of_feeds(0);
+        feed.setNameOfFeed("");
+        feed.setManufacturer_of_feed("");
+        feed.setPrice_of_feed(0);
+        feed.setWeight_of_feed(0);
+        return "feed-creation";
+    }
     @PostMapping("/feeds/create")
-    public String createFeed(FeedsModel feed){
+    public String createFeed(@Valid @ModelAttribute("newFeed") FeedsModel feed, BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("animals",animalsService.listAnimals(null));
+            model.addAttribute("feedErr",bindingResult.hasErrors());
+            return "feed-creation";
+        }
         feedsService.saveFeed(feed);
         return "redirect:/feeds";
 

@@ -1,12 +1,11 @@
 package com.example.shop.controllers;
 
-import com.example.shop.models.SalesModel;
 import com.example.shop.models.StaffModel;
 import com.example.shop.models.User;
-import com.example.shop.repositories.StaffRepository;
 import com.example.shop.services.SalesService;
 import com.example.shop.services.StaffService;
 import com.example.shop.services.UserService;
+import com.example.shop.util.StaffValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,9 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,6 +23,8 @@ public class StaffController {
     private final StaffService staffService;
     private final SalesService salesService;
     private final UserService userService;
+
+    private final StaffValidator staffValidator;
 
 
     public User user;
@@ -37,20 +35,19 @@ public class StaffController {
         model.addAttribute("user", user);
         return "staff";
     }
-
-
     @GetMapping("/staff/{id_staff}/edit")
     public String startEditStaff(@PathVariable(value = "id_staff") Long id_staff ,Model model){
         model.addAttribute("staff",staffService.getStaffById(id_staff));
         return "edit-staff";
     }
     @PostMapping("/staff/{id_staff}/edit")
-    public String editStaff(@PathVariable(value = "id_staff") Long id_staff , @Valid @ModelAttribute("staff") StaffModel staffModel,BindingResult bindingResult,Model model){
+    public String editStaff(@PathVariable(value = "id_staff") Long id_staff , @Valid @ModelAttribute("staff") StaffModel staff,BindingResult bindingResult,Model model){
+        staffValidator.validate(staff,bindingResult);
         if(bindingResult.hasErrors()){
             model.addAttribute("err",bindingResult.hasErrors());
             return "edit-staff";
         }
-        staffService.update(id_staff,staffModel);
+        staffService.update(id_staff,staff);
         return "redirect:/staff";
     }
 
@@ -69,7 +66,7 @@ public class StaffController {
     @GetMapping("/staff/create")
     public String startCreateStaff(@ModelAttribute("staff") StaffModel staff, Model model){
         staff.setFullName("");
-        staff.setNum_of_passport("");
+        staff.setNumOfPassport("");
         staff.setTelNumber("+375");
         staff.setExperience(0);
         staff.setJob_title("");
@@ -77,6 +74,7 @@ public class StaffController {
     }
     @PostMapping("/staff/create")
     public String createStaff(@Valid @ModelAttribute("staff")  StaffModel staff, BindingResult bindingResult,Model model){
+        staffValidator.validate(staff,bindingResult);
        if(bindingResult.hasErrors()){
            model.addAttribute("err",bindingResult.hasErrors());
            return "staff-creation";

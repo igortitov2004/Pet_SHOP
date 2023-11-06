@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>SHOP</title>
-
     <link rel="stylesheet" type="text/css" href="/style/login.css">
 </head>
 <body>

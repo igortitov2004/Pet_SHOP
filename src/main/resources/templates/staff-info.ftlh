@@ -11,7 +11,7 @@
 
 <h2>Подробная информация</h2>
 <b>Ф.И.О.:</b>${staff.fullName}<br>
-<b>Номер паспорта:</b>${staff.num_of_passport}<br>
+<b>Номер паспорта:</b>${staff.numOfPassport}<br>
 <b>Номер телефона:</b>${staff.telNumber}<br>
 <b>Стаж работы:</b>${staff.experience}<br>
 <b>Должность:</b>${staff.job_title}<br>

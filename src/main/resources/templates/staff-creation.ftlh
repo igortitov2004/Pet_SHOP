@@ -11,37 +11,37 @@
 <h3>Добавление работника</h3>
 <hr>
 <form action="/staff/create" method="post" enctype="multipart/form-data">
-        ФИО:<input type="text"  value="${staff.fullName}" required name="fullName"/><br><br>
+        ФИО:<input type="text"  value="${staff.fullName}" required name="fullName"/><br>
         <#if err??>
             <div style="color: red">
                 <@spring.bind "staff.fullName"/>
                 <@spring.showErrors "<br>"/>
             </div>
-        </#if>
-        Номер паспорта:<input type="text"  value="${staff.num_of_passport}" required name="num_of_passport"/><br>
+        </#if><br>
+        Номер паспорта:<input type="text"  value="${staff.numOfPassport}" required name="numOfPassport" minlength="9" maxlength="9"/><br>
          <#if err??>
-             <br><div style="color: red">
-                 <@spring.bind "staff.num_of_passport"/>
+             <div style="color: red">
+                 <@spring.bind "staff.numOfPassport"/>
                  <@spring.showErrors "<br>"/>
              </div>
-         </#if>
-        Номер телефона:<input type="text" value="${staff.telNumber}" required name="telNumber"/><br>
+         </#if><br>
+        Номер телефона:<input type="text" value="${staff.telNumber}" required name="telNumber" minlength="13" maxlength="13"/><br>
         <#if err??>
-            <br><div style="color: red">
+            <div style="color: red">
                 <@spring.bind "staff.telNumber"/>
                 <@spring.showErrors "<br>"/>
             </div>
-        </#if>
-        Стаж работы:<input type="number" value="${staff.experience}" required name="experience" /><br>
+        </#if><br>
+        Стаж работы:<input type="number" value="${staff.experience}" required name="experience"  min="0" max="50"/><br>
         <#if err??>
-            <br><div style="color: red">
+            <div style="color: red">
                <@spring.bind "staff.experience"/>
                <@spring.showErrors "<br>"/>
            </div>
-        </#if>
+        </#if><br>
         Должность:
         <select name="job_title" required>
-            <option disabled SELECTED>Выберите</option>
+<#--            <option disabled SELECTED>Выберите</option>-->
             <option value="Менеджер"> Менеджер</option>
             <option value="Продавец-кассир"> Продавец-кассир</option>
         </select><br><br>

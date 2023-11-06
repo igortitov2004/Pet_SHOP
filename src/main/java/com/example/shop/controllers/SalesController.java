@@ -66,14 +66,13 @@ public class SalesController {
     @GetMapping("/sales/create")
     public String saleCreation(Model model){
         List<FeedsModel> list = new ArrayList<>(feedsService.listFeeds(null));
-        for (Sold_feedsModel soldFeed: sale.getSold_feedsModelList()) {
-            list=list.stream().filter(o-> !Objects.equals(o.getNameOfFeed(), soldFeed.getFeed().getNameOfFeed())).collect(Collectors.toList());
-        }
+//        for (Sold_feedsModel soldFeed: sale.getSold_feedsModelList()) {
+//            list=list.stream().filter(o-> !Objects.equals(o.getNameOfFeed(), soldFeed.getFeed().getNameOfFeed())).collect(Collectors.toList());
+//        }
         model.addAttribute("sale", sale);
-        model.addAttribute("feed", list);
+        model.addAttribute("feed", salesService.getListOfAvailableFeeds(sale,list));
         model.addAttribute("accessor", accessoriesService.listAccessories(null));
 //        model.addAttribute("staffs", staffService.listStaffs(null));
-
         return "sale-creation";
     }
 
@@ -108,10 +107,8 @@ public class SalesController {
 
     @PostMapping("/sales/save")
     public String saveSale(){
-
         sale.setStaff_id_for_sale(staffController.user.getStaff());
         salesService.saveSale(sale);
-
         return "redirect:/sales";
     }
 
@@ -119,14 +116,12 @@ public class SalesController {
     public String deleteSoldFeed(@PathVariable int index){
         sale=salesService.deleteSoldFeed(index,sale);
         return "redirect:/sales/create";
-
     }
 
     @GetMapping("/sales/deletePosAccessor/{index}")
     public String deleteSoldAccessor(@PathVariable int index){
         sale=salesService.deleteSoldAccessor(index,sale);
         return "redirect:/sales/create";
-
     }
 //    @PostMapping("/sales/delete/{id_sales}")
 //    public String deleteSale(@PathVariable Long id_sales){

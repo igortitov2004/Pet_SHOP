@@ -13,7 +13,6 @@ public class LoginSuccess implements ApplicationListener<AuthenticationSuccessEv
     private final StaffController staffController;
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
-        staffController.user=(User) event.getAuthentication().getPrincipal();
-
+        staffController.user=(User)event.getAuthentication().getPrincipal();
     }
 }

@@ -10,4 +10,6 @@ public interface StaffRepository extends JpaRepository<StaffModel,Long>{
    StaffModel findStaffModelByTelNumber(String tel_number);
    StaffModel findByTelNumber(String tel_number);
 
+   StaffModel findStaffModelByNumOfPassport(String numOfPassport);
+
 }

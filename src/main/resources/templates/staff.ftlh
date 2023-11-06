@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>SHOP</title>
     <hr>
@@ -19,14 +18,12 @@
         <th> ID работника</th>
         <th> Ф.И.О.</th>
         <th> Номер телефона </th>
-        <th> Подробная информация </th>
     </tr>
     <#list staffs as staff>
     <tr>
         <th>${staff.id_staff}</th>
-        <th>${staff.fullName}</th>
+        <th><a href="/staff/${staff.id_staff}">${staff.fullName}</a></th>
         <th>${staff.telNumber}</th>
-        <th><a href="/staff/${staff.id_staff}"> Подробнее...</a></th>
     </tr>
     </#list>
 </table>

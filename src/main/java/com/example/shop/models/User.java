@@ -2,6 +2,7 @@ package com.example.shop.models;
 
 import com.example.shop.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name="tel_number")
+    @Pattern(regexp = "\\+375(17|25|29|33|44)\\d{7}", message = "Некорректный ввод номера телефона (пример: +375(Код оператора)1234567)")
     private String telNumber;
     @OneToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "id_staff")
