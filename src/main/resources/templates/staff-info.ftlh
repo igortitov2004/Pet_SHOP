@@ -20,6 +20,7 @@
 <form action="/staff/${staff.id_staff}/edit"  method="get" >
     <input type="submit" value="Редактирование">
 </form>
+    <br>
 <form action="/staff/delete/${staff.id_staff}"  method="post" >
     <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="submit" value="Удалить работника"/>

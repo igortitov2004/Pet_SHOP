@@ -42,8 +42,6 @@
 </#if>
 <hr>
 <#if user.isCashier() || user.isManager()>
-
-
     <form action="/sales/startCreation" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Добавить продажу"/>

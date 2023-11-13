@@ -39,5 +39,4 @@ public class StaffModel {
     private String job_title;
     @OneToOne(mappedBy = "staff")
     private User user;
-
 }

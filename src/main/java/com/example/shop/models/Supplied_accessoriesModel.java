@@ -16,15 +16,11 @@ import lombok.NoArgsConstructor;
 })
 public class Supplied_accessoriesModel {
     CompositForSupplAccessor id = new CompositForSupplAccessor();
-
     private int amount;
     @Column(name="id_supply_for_accessories")
     private SuppliesModel supply;
-
     @Column(name="accessor_id_for_supplies")
     private  AccessoriesModel accessor;
-
-
     @EmbeddedId
     public CompositForSupplAccessor getId(){
         return id;
@@ -32,8 +28,6 @@ public class Supplied_accessoriesModel {
     public void setId(CompositForSupplAccessor id){
         this.id=id;
     }
-
-
     @Column(name = "amount_of_supplied_accessor")
     public int getAmount(){
         return amount;
@@ -42,8 +36,6 @@ public class Supplied_accessoriesModel {
     public void setAmount(int amount){
         this.amount=amount;
     }
-
-
     @Transient
     public SuppliesModel getSupply(){
         return supply;

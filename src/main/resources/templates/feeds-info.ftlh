@@ -6,10 +6,10 @@
 <body>
 <h2>Подробная информация</h2><hr>
 <b>Название:</b>${feeds.nameOfFeed}<br>
-<b>Производитель :</b>${feeds.manufacturer_of_feed}<br>
-<b>Вес:</b>${feeds.weight_of_feed}<br>
-<b>Стоимость:</b>${feeds.price_of_feed}<br>
-<b>Количество:</b>${feeds.amount_of_feeds}<br>
-<b>Животное:</b>${feeds.animal_id_for_feed.kindOfAnimal}
+<b>Производитель:</b>${feeds.manufacturerOfFeed}<br>
+<b>Вес:</b>${feeds.weightOfFeed}<br>
+<b>Стоимость:</b>${feeds.priceOfFeed}<br>
+<b>Количество:</b>${feeds.amountOfFeeds}<br>
+<b>Животное:</b>${feeds.animal.kindOfAnimal}
 </body>
 </html>

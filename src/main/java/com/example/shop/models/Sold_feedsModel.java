@@ -15,18 +15,14 @@ import lombok.NoArgsConstructor;
         @AssociationOverride(name = "id.feed",joinColumns = @JoinColumn(name = "feed_id_for_sale"))
 })
 public class Sold_feedsModel {
-
     CompositForSoldFeeds id = new CompositForSoldFeeds();
-
     private int amount;
-   @Column(name="id_sales_for_feeds")
+    @Column(name="id_sales_for_feeds")
     private SalesModel sale;
 
-  @Column(name="feed_id_for_sale")
+    @Column(name="feed_id_for_sale")
     private FeedsModel feed;
-
-
-   @EmbeddedId
+    @EmbeddedId
     public CompositForSoldFeeds getId(){
         return id;
     }

@@ -30,9 +30,9 @@
             <tr>
                 <th>${animal.id_animals}</th>
                 <th>${animal.kindOfAnimal}</th>
-                <th>${animal.breed_id.breed}</th>
+                <th>${animal.breed.breed}</th>
                 <th>${animal.weight_of_animal}</th>
-                <th>${animal.age_of_animal}</th>
+                <th>${animal.ageOfAnimal}</th>
 
                 <#if user.isManager()>
                 <th><form action="/animals/delete/${animal.id_animals}"  method="post" >

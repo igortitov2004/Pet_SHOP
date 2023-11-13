@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Создание поставки</title>
-
 </head>
 <body>
 <#if supply.supplied_feedsModelList??>
@@ -28,33 +27,54 @@
     </table>
 </#if>
 <hr>
-<form action="/supplies/addFeed" method="post" enctype="multipart/form-data">
-    Корм:<select name="id_feeds" required>
-        <option value="">Выберите корм</option>
-        <#list feed as feed>
-            <option value="${feed.id_feeds}"> ${feed.nameOfFeed} </option>
-
-        </#list>
-    </select><br><br>
-
-       Количество:<input type="number" required min="1"  max="500" name="amount"/><br><br>
-
-
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Добавить"/>
-</form>
+<#if feed?has_content>
+    <form action="/supplies/addFeed" method="post" enctype="multipart/form-data">
+        Корм:<select name="id_feeds" required>
+            <option value="">Выберите корм</option>
+            <#list feed as feed>
+                <option value="${feed.id_feeds}">
+                    ${feed.nameOfFeed}
+                    <#if feed.animal??>
+                        - ${feed.animal.kindOfAnimal}
+                        (${feed.animal.breed.breed})
+                    <#else> - Животное удалено!
+                    </#if>
+                    , Производитель - ${feed.manufacturerOfFeed}
+                    , Вес - ${feed.weightOfFeed} кг
+                    , Cтоимость - ${feed.priceOfFeed} BYN
+                </option>
+            </#list>
+        </select><br><br>
+        Количество:<input type="number" required min="1"  max="500" name="amount"/><br><br>
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Добавить"/>
+    </form>
+    <#else> Доступных кормов для поставки нет!
+</#if>
 <hr>
-<form action="/supplies/addAccessor" method="post" enctype="multipart/form-data">
-    Аксессуар:<select name="id_accessories" required>
-        <option value="">Выберите аксессуар</option>
-        <#list accessor as accessor>
-            <option value="${accessor.id_accessories}"> ${accessor.nameOfAccessor} </option>
-        </#list>
-    </select><br><br>
-    Количество:<input type="number"required min="1" step="1" max="200" name="amount"/><br><br>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Добавить"/>
-</form>
+<#if accessor?has_content>
+    <form action="/supplies/addAccessor" method="post" enctype="multipart/form-data">
+        Аксессуар:<select name="id_accessories" required>
+            <option value="">Выберите аксессуар</option>
+            <#list accessor as accessor>
+                <option value="${accessor.id_accessories}">
+                    ${accessor.nameOfAccessor}
+                    <#if accessor.animal??>
+                        - ${accessor.animal.kindOfAnimal}
+                        (${accessor.animal.breed.breed})
+                    <#else> - Животное удалено!
+                    </#if>
+                    , Производитель - ${accessor.manufacturerOfAccessor}
+                    , Cтоимость - ${accessor.priceOfAccessor} BYN
+                </option>
+            </#list>
+        </select><br><br>
+        Количество:<input type="number"required min="1" step="1" max="200" name="amount"/><br><br>
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Добавить"/>
+    </form>
+    <#else> Доступных аксессуаров для поставки нет!
+</#if>
 <hr>
 <#if supply.supplied_feedsModelList?has_content || supply.supplied_accessoriesModelList?has_content>
 <form action="/supplies/save" method="post" enctype="multipart/form-data">
@@ -62,6 +82,5 @@
     <input type="submit" value="Оформить"/>
 </form>
 </#if>
-
 </body>
 </html>

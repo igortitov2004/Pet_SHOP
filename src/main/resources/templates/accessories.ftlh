@@ -31,9 +31,13 @@
         <tr>
             <th>${accessor.id_accessories}</th>
             <th>${accessor.nameOfAccessor}</th>
-            <th>${accessor.animal_id_for_accessor.kindOfAnimal}</th>
-            <th>${accessor.price_of_accessor}</th>
-            <th>${accessor.manufacturer_of_accessor}</th>
+            <#if accessor.animal??>
+                <th>${accessor.animal.kindOfAnimal}(${accessor.animal.breed.breed})</th>
+                <#else><th style="color: darkblue">Животное удалено</th>
+            </#if>
+
+            <th>${accessor.priceOfAccessor}</th>
+            <th>${accessor.manufacturerOfAccessor}</th>
             <th>${accessor.amount_of_accessories}</th>
             <th><form action="/accessories/${accessor.id_accessories}/edit"  method="get" >
                     <input type="submit" value="Изменить">
@@ -52,18 +56,7 @@
     <br><br><br><br><br><br><br><br><br>
 </#if>
 <#if user.isManager() || user.isCashier()>
-    <h3>Добавление аксессуара</h3>
-<form action="/accessories/create" method="post" enctype="multipart/form-data">
-    Название:<input type="text"  required name="nameOfAccessor"/><br><br>
-    Животное:<select name="animal_id_for_accessor" required>
-        <option disabled SELECTED>Выберите<option>
-        <#list animals as animal>
-            <option value="${animal.id_animals}"> ${animal.kindOfAnimal}: ${animal.breed_id.breed}</option>
-        </#list>
-    </select><br><br>
-    Стоимость:<input type="text" required name="price_of_accessor"/><br><br>
-    Производитель:<input type="text"  required name="manufacturer_of_accessor"/><br><br>
-    <input type="hidden" value="0" name="amount_of_accessories"/>
+<form action="/accessories/create" method="get">
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Добавить аксессуар"/>
 </form>

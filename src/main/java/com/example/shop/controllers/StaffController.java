@@ -42,7 +42,13 @@ public class StaffController {
     }
     @PostMapping("/staff/{id_staff}/edit")
     public String editStaff(@PathVariable(value = "id_staff") Long id_staff , @Valid @ModelAttribute("staff") StaffModel staff,BindingResult bindingResult,Model model){
-        staffValidator.validate(staff,bindingResult);
+
+        if(staff.getNumOfPassport().equals(staffService.getStaffById(id_staff).getNumOfPassport()) &&
+                        staff.getTelNumber().equals(staffService.getStaffById(id_staff).getTelNumber())){
+            return "redirect:/staff";
+        }else{
+            staffValidator.validate(staff,bindingResult);
+        }
         if(bindingResult.hasErrors()){
             model.addAttribute("err",bindingResult.hasErrors());
             return "edit-staff";

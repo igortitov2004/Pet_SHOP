@@ -5,9 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.format.annotation.NumberFormat;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 @Entity
@@ -35,16 +32,15 @@ public class AnimalsModel {
     @Column(name="age_of_animal")
 //    @Min(value = 0,message = "Некорректный ввод!")
 //    @Max(value = 30,message = "Максимально допустимый возраст 30 лет!")
-    private Integer age_of_animal;
-
-    @OneToMany(mappedBy = "animal_id_for_accessor")
+    private Integer ageOfAnimal;
+    @OneToMany(mappedBy = "animal")
     private List<AccessoriesModel> AccessorList;
-    @OneToMany(mappedBy = "animal_id_for_feed")
+    @OneToMany(mappedBy = "animal")
     private List<FeedsModel> FeedsList;
 
     @ManyToOne
     @JoinColumn(name="breed_id")
-    private BreedsModel breed_id;
+    private BreedsModel breed;
 
 
 

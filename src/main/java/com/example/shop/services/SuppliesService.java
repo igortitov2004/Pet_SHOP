@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -29,7 +32,6 @@ public class SuppliesService {
         return supply;
     }
     public SuppliesModel addAccessorInSupply(SuppliesModel supply, AccessoriesModel accessor,int amount){
-
         Supplied_accessoriesModel suppliedAccessor=new Supplied_accessoriesModel();
         suppliedAccessor.setAccessor(accessor);
         suppliedAccessor.setAmount(amount);
@@ -38,11 +40,7 @@ public class SuppliesService {
         return supply;
     }
     public void saveSupply(SuppliesModel supply){
-        System.err.println("aaa");
         suppliesRepository.save(supply);
-        System.err.println("bbb");
-
-        System.err.println("ccc");
     }
     public SuppliesModel deleteSuppliedFeed(int index,SuppliesModel supply){
         supply.getSupplied_feedsModelList().remove(index);
@@ -57,5 +55,18 @@ public class SuppliesService {
     }
     public SuppliesModel getSupplyById(Long id_supplies) {
         return suppliesRepository.findById(id_supplies).orElse(null);
+    }
+
+    public List<FeedsModel> getListOfAvailableFeeds(SuppliesModel supply, List<FeedsModel> list){
+        for (Supplied_feedsModel suppliedFeed: supply.getSupplied_feedsModelList()) {
+            list=list.stream().filter(o-> !Objects.equals(o.getNameOfFeed(), suppliedFeed.getFeed().getNameOfFeed())).collect(Collectors.toList());
+        }
+        return list;
+    }
+    public List<AccessoriesModel> getListOfAvailableAccessories(SuppliesModel supply, List<AccessoriesModel> list){
+        for (Supplied_accessoriesModel suppliedAccessor: supply.getSupplied_accessoriesModelList()) {
+            list=list.stream().filter(o-> !Objects.equals(o.getNameOfAccessor(), suppliedAccessor.getAccessor().getNameOfAccessor())).collect(Collectors.toList());
+        }
+        return list;
     }
 }

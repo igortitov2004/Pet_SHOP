@@ -28,6 +28,7 @@ public class StaffService {
         staff.setExperience(staffModel.getExperience());
         staff.setJob_title(staffModel.getJob_title());
         staffRepository.save(staff);
+
     }
     public boolean isStaff(StaffModel staff){
         if(staffRepository.findByTelNumber(staff.getTelNumber())!=null ){

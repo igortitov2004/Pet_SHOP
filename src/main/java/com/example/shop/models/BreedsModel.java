@@ -2,7 +2,6 @@ package com.example.shop.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,7 @@ public class BreedsModel {
     @Column(name="breed")
     @Pattern(regexp = "^[А-ЯЁа-яё]+[\s]?+[А-ЯЁа-яё]+$", message = "Некторректный ввод породы!")
     private String breed;
-    @OneToMany(mappedBy = "breed_id",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "breed",cascade = CascadeType.ALL)
     private List<AnimalsModel> AnimalsList;
 
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Objects;
+
 @Component
 @RequiredArgsConstructor
 public class StaffValidator implements Validator {
@@ -22,10 +24,14 @@ public class StaffValidator implements Validator {
     public void validate(Object target, Errors errors) {
         StaffModel staff = (StaffModel) target;
         if(staffService.getStaffByNumOfPassport(staff.getNumOfPassport()).isPresent()){
-            errors.rejectValue("numOfPassport","","Человек с таким паспортом уже существует");
+            if(!staffService.getStaffByNumOfPassport(staff.getNumOfPassport()).get().getId_staff().equals(staff.getId_staff())){
+                errors.rejectValue("numOfPassport","","Человек с таким паспортом уже существует");
+            }
         }
         if(staffService.getStaffByTelNumber(staff.getTelNumber()).isPresent()){
-            errors.rejectValue("telNumber","","Человек с таким номером телефона уже существует");
+            if(!staffService.getStaffByTelNumber(staff.getTelNumber()).get().getId_staff().equals(staff.getId_staff())){
+                errors.rejectValue("telNumber","","Человек с таким номером телефона уже существует");
+            }
         }
     }
 }

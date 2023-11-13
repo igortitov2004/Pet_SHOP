@@ -1,6 +1,7 @@
 package com.example.shop.services;
 
 import com.example.shop.models.FeedsModel;
+import com.example.shop.models.StaffModel;
 import com.example.shop.repositories.FeedsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +17,13 @@ public class FeedsService {
         return feedsRepository.findAll();
     }
     public void saveFeed(FeedsModel feeds){
-        log.info("Saving new {}",feeds);
         feedsRepository.save(feeds);
+    }
+
+    public void update(Long id, FeedsModel feedsModel){
+        FeedsModel feed = getFeedById(id);
+        feed.setPriceOfFeed(feedsModel.getPriceOfFeed());
+        feedsRepository.save(feed);
     }
     public void deleteFeed( Long id_feeds){
         feedsRepository.deleteById(id_feeds);

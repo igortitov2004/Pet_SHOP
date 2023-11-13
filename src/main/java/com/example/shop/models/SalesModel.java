@@ -22,8 +22,6 @@ public class SalesModel {
     private Long id_sales;
     @Column(name="date_of_sale")
     private String dateOfSale;
-
-
     @ManyToOne
     @JoinColumn(name="staff_id_for_sale")
     private StaffModel staff_id_for_sale;

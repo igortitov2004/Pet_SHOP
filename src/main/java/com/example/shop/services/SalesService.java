@@ -64,7 +64,19 @@ public class SalesService {
 
     public List<FeedsModel> getListOfAvailableFeeds(SalesModel sale, List<FeedsModel> list){
         for (Sold_feedsModel soldFeed: sale.getSold_feedsModelList()) {
-            list=list.stream().filter(o-> !Objects.equals(o.getNameOfFeed(), soldFeed.getFeed().getNameOfFeed())).collect(Collectors.toList());
+            list=list.stream()
+                    .filter(o-> !Objects.equals(o.getNameOfFeed(), soldFeed.getFeed().getNameOfFeed()))
+                    .filter(o -> o.getAmountOfFeeds()>0)
+                    .collect(Collectors.toList());
+        }
+        return list;
+    }
+    public List<AccessoriesModel> getListOfAvailableAccessories(SalesModel sale, List<AccessoriesModel> list){
+        for (Sold_accessoriesModel soldAccessor: sale.getSold_accessoriesModelList()) {
+            list=list.stream()
+                    .filter(o-> !Objects.equals(o.getNameOfAccessor(), soldAccessor.getAccessor().getNameOfAccessor()))
+                    .filter(o-> o.getAmount_of_accessories()>0)
+                    .collect(Collectors.toList());
         }
         return list;
     }

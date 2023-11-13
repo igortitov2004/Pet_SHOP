@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class SuppliesController {
     private final SuppliesService suppliesService;
     private final StaffService staffsService;
-
     private final FeedsService feedsService;
     private final AccessoriesService accessoriesService;
     private final StaffController staffController;
@@ -72,10 +71,9 @@ public class SuppliesController {
 
     @GetMapping("/supplies/create")
     public String supplyCreation(Model model){
-
         model.addAttribute("supply", supply);
-        model.addAttribute("feed", feedsService.listFeeds(null));
-        model.addAttribute("accessor", accessoriesService.listAccessories(null));
+        model.addAttribute("feed", suppliesService.getListOfAvailableFeeds(supply,feedsService.listFeeds(null)));
+        model.addAttribute("accessor", suppliesService.getListOfAvailableAccessories(supply,accessoriesService.listAccessories(null)));
 //        model.addAttribute("staffs", staffsService.listStaffs(null));
         return "supply-creation";
     }
@@ -93,7 +91,6 @@ public class SuppliesController {
     }
     @PostMapping("/supplies/save")
     public String saveSupply(){
-
         supply.setStaff_id_for_suppl(staffController.user.getStaff());
         suppliesService.saveSupply(supply);
         return "redirect:/supplies";
@@ -112,15 +109,9 @@ public class SuppliesController {
         return "redirect:/supplies/create";
 
     }
-
-
-
-
-
     @PostMapping("/supplies/delete/{id_supplies}")
     public String deleteSupply(@PathVariable Long id_supplies){
         suppliesService.deleteSupply(id_supplies);
-        return "redirect:/sales";
-
+        return "redirect:/supplies";
     }
 }

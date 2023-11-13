@@ -15,42 +15,41 @@
 <br>
 <#if feeds?has_content>
     <table border="1">
-    <tr>
-        <th> ID корма </th>
-        <th> Название </th>
-        <th> Животное </th>
-        <th> Стоимость </th>
-        <th> Вес(кг) </th>
-        <th> Производитель </th>
-        <th> Количество </th>
-        <th> Изменение стоимости </th>
-        <#if user.isManager() || user.isCashier()>
-        <th> Удаление </th>
-        </#if>
-    </tr>
-    <#list feeds as feed>
         <tr>
-            <th>${feed.id_feeds}</th>
-            <th>${feed.nameOfFeed}</th>
-            <#if feed.animal_id_for_feed??>
-                <th>${feed.animal_id_for_feed.kindOfAnimal}(${feed.animal_id_for_feed.breed_id.breed})</th>
-            <#else> <th style="color: darkblue">Животное удалено</th>
-            </#if>
-
-            <th>${feed.price_of_feed}</th>
-            <th>${feed.weight_of_feed}</th>
-            <th>${feed.manufacturer_of_feed}</th>
-            <th>${feed.amount_of_feeds}</th>
-            <th><form action="/feeds/${feed.id_feeds}/edit"  method="get" >
-                    <input type="submit" value="Изменить">
-                </form></th>
+            <th> ID корма </th>
+            <th> Название </th>
+            <th> Животное </th>
+            <th> Стоимость </th>
+            <th> Вес(кг) </th>
+            <th> Производитель </th>
+            <th> Количество </th>
+            <th> Изменение стоимости </th>
             <#if user.isManager() || user.isCashier()>
-            <th><form action="/feeds/delete/${feed.id_feeds}" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="_csrf" value="${_csrf.token}">
-                    <input type="submit"  value="Удалить"/></form></th></#if>
+                <th> Удаление </th>
+            </#if>
         </tr>
-    </#list>
-</table>
+        <#list feeds as feed>
+            <tr>
+                <th>${feed.id_feeds}</th>
+                <th>${feed.nameOfFeed}</th>
+                <#if feed.animal??>
+                    <th>${feed.animal.kindOfAnimal}(${feed.animal.breed.breed})</th>
+                <#else> <th style="color: darkblue">Животное удалено</th>
+                </#if>
+                <th>${feed.priceOfFeed}</th>
+                <th>${feed.weightOfFeed}</th>
+                <th>${feed.manufacturerOfFeed}</th>
+                <th>${feed.amountOfFeeds}</th>
+                <th><form action="/feeds/${feed.id_feeds}/edit"  method="get" >
+                        <input type="submit" value="Изменить">
+                    </form></th>
+                <#if user.isManager() || user.isCashier()>
+                    <th><form action="/feeds/delete/${feed.id_feeds}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                        <input type="submit"  value="Удалить"/></form></th></#if>
+            </tr>
+        </#list>
+    </table>
 <#else> Данный корм не найден!
 </#if>
 <br>

@@ -33,12 +33,7 @@
             </div>
         </#if><br>
         Стаж работы:<input type="number" value="${staff.experience}" required name="experience"  min="0" max="50"/><br>
-        <#if err??>
-            <div style="color: red">
-               <@spring.bind "staff.experience"/>
-               <@spring.showErrors "<br>"/>
-           </div>
-        </#if><br>
+        <br>
         Должность:
         <select name="job_title" required>
 <#--            <option disabled SELECTED>Выберите</option>-->
@@ -48,8 +43,5 @@
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Применить"/>
 </form>
-<#if errorMessage??>
-    <h3 style="color: darkblue">${errorMessage}</h3>
-</#if>
 </body>
 </html>
