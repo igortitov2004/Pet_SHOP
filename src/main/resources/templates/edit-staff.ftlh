@@ -8,7 +8,6 @@
     <hr>
 </head>
 <body>
-
 <h3>Изменение данных работника</h3>
 <hr>
 <form action="/staff/${staff.id_staff}/edit" method="post" enctype="multipart/form-data">

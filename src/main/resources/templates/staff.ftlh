@@ -2,16 +2,20 @@
 <html>
 <head>
     <title>SHOP</title>
+    <link rel="stylesheet" type="text/css" href="/style/actionHref.css">
+    <link rel="stylesheet" type="text/css" href="/style/actionButton.css">
+    <link rel="stylesheet" type="text/css" href="/style/moreInfoButton.css">
+    <link rel="stylesheet" type="text/css" href="/style/searchButton.css">
     <hr>
-       <h3><a href="/" style="text-align: center; text-decoration: none"> Главная </a></h3>
+       <h3><div class="ref"><a href="/" style="text-align: center; text-decoration: none"> Главная </a></div> </h3>
     <hr>
 </head>
 <body>
 <form action="/staff" method="get">
-    <div style="display: inline-flex">Поиск по ФИО:<input type="text" name="fullName"><br>
-        <input type="submit" value="Поиск"/></div>
+    <input type="text" name="fullName" placeholder="Поиск по ФИО"><br><br>
+       <div class="search"><input type="submit" value="Поиск"/></div>
 </form>
-<br>
+<hr>
 <#if staffs?has_content>
 <table border="1">
     <tr>
@@ -22,16 +26,16 @@
     <#list staffs as staff>
     <tr>
         <th>${staff.id_staff}</th>
-        <th><a href="/staff/${staff.id_staff}">${staff.fullName}</a></th>
+        <th><div class="more"><a href="/staff/${staff.id_staff}">${staff.fullName}</a></div> </th>
         <th>${staff.telNumber}</th>
     </tr>
     </#list>
 </table>
-    <#else> Данный работник не найден!
+<#else> <h4 style="color:red;">Данный работник не найден!</h4><br>
 </#if>
 <hr>
 <form action="/staff/create" method="get">
-    <input type="submit" value="Добавить работника">
+   <div class="action"><input type="submit" value="Добавить работника"></div>
 </form>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.example.shop.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode
 public class SalesModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,6 @@ public class SalesModel {
     @ManyToOne
     @JoinColumn(name="staff_id_for_sale")
     private StaffModel staff_id_for_sale;
-
     @OneToMany(mappedBy = "id.sale",cascade = CascadeType.ALL)
     private List<Sold_feedsModel> sold_feedsModelList;
     @OneToMany(mappedBy = "id.sale",cascade = CascadeType.ALL)
@@ -34,8 +35,4 @@ public class SalesModel {
     private void init(){
         dateOfSale=String.valueOf(LocalDate.now());
     }
-
-
-
-
 }

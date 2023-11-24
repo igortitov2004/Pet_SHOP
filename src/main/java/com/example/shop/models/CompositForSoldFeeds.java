@@ -1,11 +1,13 @@
 package com.example.shop.models;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 @Embeddable
 @RequiredArgsConstructor
+@EqualsAndHashCode
 public class CompositForSoldFeeds implements Serializable {
 
     private SalesModel sale;

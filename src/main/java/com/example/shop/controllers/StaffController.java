@@ -23,9 +23,7 @@ public class StaffController {
     private final StaffService staffService;
     private final SalesService salesService;
     private final UserService userService;
-
     private final StaffValidator staffValidator;
-
 
     public User user;
     @GetMapping("/staff")
@@ -35,6 +33,18 @@ public class StaffController {
         model.addAttribute("user", user);
         return "staff";
     }
+    @GetMapping("/staff/{id_staff}")
+    public String staffInfo(@PathVariable Long id_staff,Principal  principal, Model model){
+        model.addAttribute("staff", staffService.getStaffById(id_staff));
+        model.addAttribute("user",userService.getUserByPrincipal(principal));
+        return "staff-info";
+    }
+    @PostMapping("/staff/delete/{id_staff}")
+    public String deleteStaff(@PathVariable Long id_staff){
+        staffService.deleteStaff(id_staff);
+        return "redirect:/staff";
+    }
+
     @GetMapping("/staff/{id_staff}/edit")
     public String startEditStaff(@PathVariable(value = "id_staff") Long id_staff ,Model model){
         model.addAttribute("staff",staffService.getStaffById(id_staff));
@@ -62,15 +72,11 @@ public class StaffController {
         model.addAttribute("user",userService.getUserByPrincipal(principal));
         return "main-page";
     }
-    @GetMapping("/staff/{id_staff}")
-    public String staffInfo(@PathVariable Long id_staff,Principal  principal, Model model){
-        model.addAttribute("staff", staffService.getStaffById(id_staff));
-        model.addAttribute("user",userService.getUserByPrincipal(principal));
-        return "staff-info";
-    }
+
+
 
     @GetMapping("/staff/create")
-    public String startCreateStaff(@ModelAttribute("staff") StaffModel staff, Model model){
+    public String startCreateStaff(@ModelAttribute("staff") StaffModel staff){
         staff.setFullName("");
         staff.setNumOfPassport("");
         staff.setTelNumber("+375");
@@ -85,17 +91,9 @@ public class StaffController {
            model.addAttribute("err",bindingResult.hasErrors());
            return "staff-creation";
        }
-       if(!staffService.isStaff(staff)){
-           model.addAttribute("errorMessage","Работник с номером "+staff.getTelNumber()+" уже существует!!!");
-           return "staff-creation";
-       }
         staffService.saveStaff(staff);
         return "redirect:/staff";
     }
 
-    @PostMapping("/staff/delete/{id_staff}")
-    public String deleteStaff(@PathVariable Long id_staff){
-        staffService.deleteStaff(id_staff);
-        return "redirect:/staff";
-    }
+
 }

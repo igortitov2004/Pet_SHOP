@@ -3,6 +3,7 @@ package com.example.shop.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
         @AssociationOverride(name = "id.supply",joinColumns = @JoinColumn(name = "id_supply_for_feeds")),
         @AssociationOverride(name = "id.feed",joinColumns = @JoinColumn(name = "feed_id_for_supplies"))
 })
+@EqualsAndHashCode
 public class Supplied_feedsModel {
     CompositForSupplFeeds id = new CompositForSupplFeeds();
     private int amount;

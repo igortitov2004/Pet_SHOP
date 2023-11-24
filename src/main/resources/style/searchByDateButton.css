@@ -1,0 +1,22 @@
+body{
+    font-family: 'Lato', sans-serif;
+}
+.search input[type="submit"] {
+    width: 70px;
+    height: 25px;
+    padding-top: 5px;
+    text-decoration: none;
+    background:  #2ecc71;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
+    border: 2px solid #2ecc71;
+    transition: all .35s;
+    border-radius: 5px;
+}
+.search input[type="submit"]:hover {
+    width: 70px;
+    border: 2px solid #2ecc71;
+    background: #fff;
+    color:  #2ecc71;
+}

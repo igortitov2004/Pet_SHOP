@@ -1,0 +1,22 @@
+.ref a{
+    display: block;
+    width: 120px;
+    height: 25px;
+    margin-left: 10px;
+    line-height: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    background: #2ecc71;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
+    border: 2px solid #2ecc71;
+    transition: all .35s;
+    border-radius: 5px;
+}
+.ref a:hover{
+    width: 120px;
+    border: 2px solid #2ecc71;
+    background: #fff;
+    color: #2ecc71;
+}

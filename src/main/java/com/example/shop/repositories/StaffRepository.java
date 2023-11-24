@@ -8,8 +8,5 @@ import java.util.List;
 public interface StaffRepository extends JpaRepository<StaffModel,Long>{
    List<StaffModel> findStaffModelByFullNameContaining (String fullName);
    StaffModel findStaffModelByTelNumber(String tel_number);
-   StaffModel findByTelNumber(String tel_number);
-
    StaffModel findStaffModelByNumOfPassport(String numOfPassport);
-
 }

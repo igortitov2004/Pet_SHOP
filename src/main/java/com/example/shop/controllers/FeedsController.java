@@ -36,6 +36,12 @@ public class FeedsController {
         model.addAttribute("feeds", feedsService.getFeedById(id_feeds));
         return "feeds-info";
     }
+
+    @PostMapping("/feeds/delete/{id_feeds}")
+    public String deleteFeed(@PathVariable Long id_feeds){
+        feedsService.deleteFeed(id_feeds);
+        return "redirect:/feeds";
+    }
     @GetMapping("/feeds/create")
     public String startCreateFeed(@ModelAttribute("newFeed") FeedsModel feed, Model model){
         model.addAttribute("animals",animalsService.listAnimals(null));
@@ -58,11 +64,7 @@ public class FeedsController {
         return "redirect:/feeds";
 
     }
-    @PostMapping("/feeds/delete/{id_feeds}")
-    public String deleteAccessor(@PathVariable Long id_feeds){
-        feedsService.deleteFeed(id_feeds);
-        return "redirect:/feeds";
-    }
+
     @GetMapping("/feeds/{id_feeds}/edit")
     public String startEditFeed(@PathVariable(value = "id_feeds") Long id_feeds, Model model){
         model.addAttribute("feeds",feedsService.getFeedById(id_feeds));

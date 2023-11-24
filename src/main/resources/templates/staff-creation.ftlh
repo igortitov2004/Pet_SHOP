@@ -36,7 +36,7 @@
         <br>
         Должность:
         <select name="job_title" required>
-<#--            <option disabled SELECTED>Выберите</option>-->
+            <option value="">Выберите</option>
             <option value="Менеджер"> Менеджер</option>
             <option value="Продавец-кассир"> Продавец-кассир</option>
         </select><br><br>

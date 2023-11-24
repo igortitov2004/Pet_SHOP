@@ -1,0 +1,11 @@
+body{
+    font-family: 'Lato', sans-serif;
+}
+
+.more a {
+    color:#006ede;
+    text-decoration: none
+}
+.more a:hover {
+    color: #00258c;
+}

@@ -20,7 +20,9 @@
     <table border="1">
         <#list sale.sold_accessoriesModelList as soldAccessor>
             <tr>
-                <th><a href="/accessories/${soldAccessor.accessor.id_accessories}"> ${soldAccessor.accessor.nameOfAccessor}</a></th>
+                <th>
+                    <a href="/accessories/${soldAccessor.accessor.id_accessories}"> ${soldAccessor.accessor.nameOfAccessor}</a>
+                </th>
                 <th>Количество(${soldAccessor.amount})</th>
                 <th><a href="/sales/deletePosAccessor/${soldAccessor_index}"> Удалить </a></th>
             </tr>
@@ -46,17 +48,20 @@
                 </option>
             </#list>
         </select><br><br>
-        Количество:<input type="number" required min="1"  step="1" max="500" name="amount"/><br>
+        Количество:<input type="number" required min="1" step="1" max="500" name="amount"/><br>
         <#if errFeed??>
             <div style="color: red">
-                Лимит покупки - ${amount}
+                <#if amount!=0>
+                    Лимит покупки - ${amount}
+                <#else> Данный корм отсутствует на складе!
+                </#if>
             </div>
         </#if>
         <br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить"/>
     </form>
-    <#else> Доступных для продажи кормов нет!
+<#else> Доступных для продажи кормов нет!
 </#if>
 
 <hr>
@@ -77,17 +82,20 @@
                 </option>
             </#list>
         </select><br><br>
-        Количество:<input type="number" required min="1" step="1"  name="amount"/><br>
+        Количество:<input type="number" required min="1" step="1" name="amount"/><br>
         <#if errAccessor??>
             <div style="color: red">
-                Лимит покупки - ${amount}
+                <#if amount!=0>
+                    Лимит покупки - ${amount}
+                <#else> Данный корм отсутствует на складе!
+                </#if>
             </div>
         </#if>
         <br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить"/>
     </form>
-    <#else> Доступных для продажи аксессуаров нет!
+<#else> Доступных для продажи аксессуаров нет!
 </#if>
 
 <hr>
@@ -96,7 +104,7 @@
     <form action="/sales/save" method="post" enctype="multipart/form-data">
 
         <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Продать"/>
+        <input type="submit" value="Продать"/>
     </form>
 </#if>
 </body>

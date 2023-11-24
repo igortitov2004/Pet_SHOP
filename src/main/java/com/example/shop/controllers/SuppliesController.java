@@ -1,7 +1,5 @@
 package com.example.shop.controllers;
 
-import com.example.shop.models.FeedsModel;
-import com.example.shop.models.SalesModel;
 import com.example.shop.models.SuppliesModel;
 import com.example.shop.services.AccessoriesService;
 import com.example.shop.services.FeedsService;
@@ -32,7 +30,7 @@ public class SuppliesController {
 //    FeedsModel feed;
 
     @GetMapping("/supplies")
-    public String supplies(@RequestParam(name = "dateOfSuppl", required = false) String dateOfSuppl, Model model){
+    public String supplies(@RequestParam(name = "dateOfSuppl", required = false) String dateOfSuppl, Model model) {
         model.addAttribute("supplies", suppliesService.listSupplies(dateOfSuppl));
         model.addAttribute("staffs", staffsService.listStaffs(null));
         model.addAttribute("user", staffController.user);
@@ -40,15 +38,15 @@ public class SuppliesController {
     }
 
     @GetMapping("/supplied_things/{id_supplies}")
-    public String supplied_things( @PathVariable Long id_supplies,Model model){
+    public String supplied_things(@PathVariable Long id_supplies, Model model) {
         model.addAttribute("supplies", suppliesService.getSupplyById(id_supplies));
         return "supplies-info";
     }
 
 
     @PostMapping("/supplies/startCreation")
-    public String startSupplyCreation(Model model){
-        supply=new SuppliesModel();
+    public String startSupplyCreation(Model model) {
+        supply = new SuppliesModel();
         supply.setStaff_id_for_suppl(null);
         supply.setDateOfSuppl("");
         supply.setSupplied_feedsModelList(new ArrayList<>());
@@ -70,47 +68,49 @@ public class SuppliesController {
 
 
     @GetMapping("/supplies/create")
-    public String supplyCreation(Model model){
+    public String supplyCreation(Model model) {
         model.addAttribute("supply", supply);
-        model.addAttribute("feed", suppliesService.getListOfAvailableFeeds(supply,feedsService.listFeeds(null)));
-        model.addAttribute("accessor", suppliesService.getListOfAvailableAccessories(supply,accessoriesService.listAccessories(null)));
+        model.addAttribute("feed", feedsService.listFeeds(null));
+        model.addAttribute("accessor",  accessoriesService.listAccessories(null));
 //        model.addAttribute("staffs", staffsService.listStaffs(null));
         return "supply-creation";
     }
 
     @PostMapping("/supplies/addFeed")
-    public String addFeedInSupply(Long id_feeds, int amount){
-        supply=suppliesService.addFeedInSupply(supply, feedsService.getFeedById(id_feeds),amount);
+    public String addFeedInSupply(Long id_feeds, int amount) {
+        supply = suppliesService.addingFeedsInSupply(supply, id_feeds, amount);
         return "redirect:/supplies/create";
     }
 
     @PostMapping("/supplies/addAccessor")
-    public String addAccessorInSale(Long id_accessories, int amount){
-        supply=suppliesService.addAccessorInSupply(supply, accessoriesService.getAccessorById(id_accessories),amount);
+    public String addAccessorInSale(Long id_accessories, int amount) {
+        supply = suppliesService.addingAccessoriesInSupply(supply, id_accessories, amount);
         return "redirect:/supplies/create";
     }
+
     @PostMapping("/supplies/save")
-    public String saveSupply(){
+    public String saveSupply() {
         supply.setStaff_id_for_suppl(staffController.user.getStaff());
         suppliesService.saveSupply(supply);
         return "redirect:/supplies";
     }
 
     @GetMapping("/supplies/deletePosFeed/{index}")
-    public String deleteSuppliedFeed(@PathVariable int index){
-        supply=suppliesService.deleteSuppliedFeed(index,supply);
+    public String deleteSuppliedFeed(@PathVariable int index) {
+        supply = suppliesService.deleteSuppliedFeed(index, supply);
         return "redirect:/supplies/create";
 
     }
 
     @GetMapping("/supplies/deletePosAccessor/{index}")
-    public String deleteSuppliedAccessor(@PathVariable int index){
-        supply=suppliesService.deleteSuppliedAccessor(index,supply);
+    public String deleteSuppliedAccessor(@PathVariable int index) {
+        supply = suppliesService.deleteSuppliedAccessor(index, supply);
         return "redirect:/supplies/create";
 
     }
+
     @PostMapping("/supplies/delete/{id_supplies}")
-    public String deleteSupply(@PathVariable Long id_supplies){
+    public String deleteSupply(@PathVariable Long id_supplies) {
         suppliesService.deleteSupply(id_supplies);
         return "redirect:/supplies";
     }

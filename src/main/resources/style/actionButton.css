@@ -1,0 +1,24 @@
+body{
+    font-family: 'Lato', sans-serif;
+}
+.action input[type="submit"] {
+    margin-left: 10px;
+    width: 180px;
+    height: 37px;
+    padding: 10px 20px;
+    /*font-weight: bold;*/
+    text-decoration: none;
+    background: #5bd284;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
+    border: 2px solid #5bd284;
+    transition: all .35s;
+    border-radius: 5px;
+}
+.action input[type="submit"]:hover {
+    width: 180px;
+    border: 2px solid #5bd284;
+    background: #fff;
+    color:  #5bd284;
+}

@@ -3,11 +3,11 @@
 <#import "spring.ftl" as spring />
 <head>
     <title>SHOP</title>
+    <hr>
+    <h3><a href="/feeds" style="text-decoration: none">Назад</a></h3>
+    <hr>
 </head>
 <body>
-<form action="/feeds" method="get">
-    <input type="submit" value="Назад"/>
-</form>
 <h3>Добавление корма</h3>
 <hr>
 <form action="/feeds/create" method="post" enctype="multipart/form-data">

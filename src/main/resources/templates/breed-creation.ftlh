@@ -3,12 +3,12 @@
 <#import "spring.ftl" as spring />
 <head>
     <title>SHOP</title>
+    <hr>
+    <h3><a href="/animals" style="text-decoration: none">Назад</a></h3>
+    <hr>
 </head>
 <body>
-<form action="/animals" method="get">
-    <input type="submit" value="Назад"/>
-</form>
-<h3>Добавление животного</h3>
+<h3>Добавление породы</h3>
 <hr>
 <form action="/breed/create" method="post" enctype="multipart/form-data">
     Порода:<input type="text"  value="${newBreed.breed}" required name="breed" minlength="3" maxlength="30"/><br>

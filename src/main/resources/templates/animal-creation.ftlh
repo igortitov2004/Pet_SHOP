@@ -3,14 +3,13 @@
 <#import "spring.ftl" as spring />
 <head>
     <title>SHOP</title>
+    <hr>
+    <h3><a href="/animals" style="text-decoration: none">Назад</a></h3>
+    <hr>
 </head>
 <body>
-<form action="/animals" method="get">
-    <input type="submit" value="Назад"/>
-</form>
-<h3>Добавление породы</h3>
+<h3>Добавление животного</h3>
 <hr>
-
 <form action="/animals/create" method="post" enctype="multipart/form-data">
     Название:<input type="text" value="${newAnimal.kindOfAnimal}" required name="kindOfAnimal" minlength="3" maxlength="30"/><br>
     <#if animalErr??>

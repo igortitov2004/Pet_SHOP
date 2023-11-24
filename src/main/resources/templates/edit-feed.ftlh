@@ -3,12 +3,18 @@
 <#import "spring.ftl" as spring />
 <head>
     <title>SHOP</title>
+    <hr>
+    <h3><a href="/feeds" style="text-decoration: none">Назад</a></h3>
+    <hr>
 </head>
 <body>
-<h2>Изменение стоимости</h2><hr>
+<h3>Изменение стоимости</h3><hr>
 <div>
     Название - ${feeds.nameOfFeed}<br>
-    Животное - ${feeds.animal.kindOfAnimal}(${feeds.animal.breed.breed})<br>
+    Животное - <#if feeds.animal??>
+        ${feeds.animal.kindOfAnimal}(${feeds.animal.breed.breed})
+        <#else> Животное удалено!
+    </#if> <br>
     Стоимость - ${feeds.priceOfFeed}<br>
     Вес - ${feeds.weightOfFeed}<br>
     Производитель - ${feeds.manufacturerOfFeed}

@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-
 public class StaffModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
