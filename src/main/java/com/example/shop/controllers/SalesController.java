@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,6 +40,8 @@ public class SalesController {
         model.addAttribute("sales", salesService.getSalesById(id_sales));
         return "sales-info";
     }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_CASHIER')")
     @PostMapping("/sales/startCreation")
     public String startSaleCreation(Model model){
         sale=new SalesModel();
@@ -47,18 +50,17 @@ public class SalesController {
         sale.setSold_feedsModelList(new ArrayList<>());
         sale.setSold_accessoriesModelList(new ArrayList<>());
         model.addAttribute("sale", sale);
-        model.addAttribute("feed", feedsService.listFeeds(null));
-        model.addAttribute("accessor", accessoriesService.listAccessories(null));
+        model.addAttribute("feed", feedsService.listFeeds(null).stream().filter(o->o.getAmountOfFeeds()>0).collect(Collectors.toList()));
+        model.addAttribute("accessor", accessoriesService.listAccessories(null).stream().filter(o->o.getAmount_of_accessories()>0).collect(Collectors.toList()));
 //        model.addAttribute("staffs", staffService.listStaffs(null));
         return "sale-creation";
     }
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_CASHIER')")
     @GetMapping("/sales/create")
     public String saleCreation(Model model){
         model.addAttribute("sale", sale);
-//        model.addAttribute("feed", salesService.getListOfAvailableFeeds(sale,feedsService.listFeeds(null)));
-        model.addAttribute("feed", feedsService.listFeeds(null));
-        model.addAttribute("accessor", accessoriesService.listAccessories(null));
-//        model.addAttribute("staffs", staffService.listStaffs(null));
+        model.addAttribute("feed", feedsService.listFeeds(null).stream().filter(o->o.getAmountOfFeeds()>0).collect(Collectors.toList()));
+        model.addAttribute("accessor", accessoriesService.listAccessories(null).stream().filter(o->o.getAmount_of_accessories()>0).collect(Collectors.toList()));
         return "sale-creation";
     }
     @PostMapping("/sales/addFeed")

@@ -18,13 +18,12 @@
 </form>
 <hr>
 <#if sales?has_content>
-    <section style="margin-left: 10px; width: 1000px" >
+    <section style="margin-left: 10px; width: 767px" >
         <div class="tbl-header">
             <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                 <tr>
-                <tr>
-                    <th> ID продажи </th>
+                    <th style="width: 100px"> ID продажи </th>
                     <th> Работник </th>
                     <th> Дата продажи </th>
                     <th> Подробная инормация </th>
@@ -39,7 +38,7 @@
                 <#list sales as sale>
 
                     <tr>
-                        <td style="text-align: center">${sale.id_sales}</td>
+                        <td style="text-align: center; width: 100px">${sale.id_sales}</td>
                         <#if sale.staff_id_for_sale??>
                             <td>${sale.staff_id_for_sale.fullName}</td>
                         <#else> <td> Работник уволен </td>
@@ -52,7 +51,7 @@
             </table>
         </div>
     </section>
-<#else> <h4 style="color: red">В данный день продажи не производились!</h4><br>
+<#else> <h4 style="color: red">В данный день продажи не производились!</h4><br><br>
 </#if>
 <br>
 <#if user.isCashier() || user.isManager()>

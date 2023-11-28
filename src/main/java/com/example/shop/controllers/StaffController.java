@@ -18,7 +18,7 @@ import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('ROLE_DIRECTOR','ROLE_MANAGER','ROLE_CASHIER')")
+@PreAuthorize("hasAnyAuthority('ROLE_DIRECTOR')")
 public class StaffController {
     private final StaffService staffService;
     private final SalesService salesService;
@@ -53,12 +53,11 @@ public class StaffController {
     @PostMapping("/staff/{id_staff}/edit")
     public String editStaff(@PathVariable(value = "id_staff") Long id_staff , @Valid @ModelAttribute("staff") StaffModel staff,BindingResult bindingResult,Model model){
 
-        if(staff.getNumOfPassport().equals(staffService.getStaffById(id_staff).getNumOfPassport()) &&
-                        staff.getTelNumber().equals(staffService.getStaffById(id_staff).getTelNumber())){
-            return "redirect:/staff";
-        }else{
-            staffValidator.validate(staff,bindingResult);
-        }
+//        if(!staff.getNumOfPassport().equals(staffService.getStaffById(id_staff).getNumOfPassport()) &&
+//                        !staff.getTelNumber().equals(staffService.getStaffById(id_staff).getTelNumber())){
+//
+//        }
+        staffValidator.validate(staff,bindingResult);
         if(bindingResult.hasErrors()){
             model.addAttribute("err",bindingResult.hasErrors());
             return "edit-staff";
@@ -67,11 +66,7 @@ public class StaffController {
         return "redirect:/staff";
     }
 
-    @GetMapping("/")
-    public String mainPage(Principal principal,Model model){
-        model.addAttribute("user",userService.getUserByPrincipal(principal));
-        return "main-page";
-    }
+
 
 
 

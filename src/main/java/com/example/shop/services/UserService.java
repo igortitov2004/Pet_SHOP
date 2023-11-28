@@ -18,16 +18,11 @@ public class UserService {
     private final StaffRepository staffRepository;
     private final PasswordEncoder passwordEncoder;
     public void createUser(User user){
-//        if(userRepository.findUserByLogin(user.getLogin())!=null || staffRepository.findStaffModelByTelNumber(user.getTelNumber())==null
-//        || userRepository.findUserByTelNumber(user.getTelNumber())!=null){
-//            return false;
-//        }
         StaffModel staff=staffRepository.findStaffModelByTelNumber(user.getTelNumber());
         user.setStaff(staff);
         user=setUserRole(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-//        return true;
     }
 
 

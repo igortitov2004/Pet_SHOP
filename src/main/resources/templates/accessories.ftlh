@@ -20,12 +20,12 @@
 </form>
 <hr>
 <#if accessories?has_content>
-    <section style="margin-left: 10px; width: 1450px" >
+    <section style="margin-left: 10px; width: 1370px" >
         <div class="tbl-header">
             <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                 <tr>
-                    <th> ID аксессуара </th>
+                    <th style="width: 100px"> ID аксессуара </th>
                     <th> Название </th>
                     <th> Животное </th>
                     <th> Стоимость </th>
@@ -44,7 +44,7 @@
                 <tbody>
                 <#list accessories as accessor>
                 <tr>
-                    <td style="text-align: center">${accessor.id_accessories}</td>
+                    <td style="text-align: center; width: 100px">${accessor.id_accessories}</td>
                     <td>${accessor.nameOfAccessor}</td>
                     <#if accessor.animal??>
                         <td>${accessor.animal.kindOfAnimal}<br>(${accessor.animal.breed.breed})</td>

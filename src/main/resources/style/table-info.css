@@ -1,0 +1,8 @@
+table{
+    margin-left: 10px;
+    border:1px solid;
+}
+th{
+    border-collapse:collapse;
+    border:1px solid;
+}

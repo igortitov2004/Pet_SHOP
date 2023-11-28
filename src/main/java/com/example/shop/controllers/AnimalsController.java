@@ -29,6 +29,7 @@ public class AnimalsController {
         return "animals";
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/animals/create")
     public String startCreateAnimal(@ModelAttribute("newAnimal") AnimalsModel animal, Model model){
         model.addAttribute("breeds", breedsService.listBreeds());
@@ -37,6 +38,7 @@ public class AnimalsController {
         animal.setWeight_of_animal(0);
         return "animal-creation";
     }
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/animals/create")
     public String createAnimal(@Valid @ModelAttribute("newAnimal") AnimalsModel animal, BindingResult bindingResult,Model model){
         animalValidator.validate(animal,bindingResult);
@@ -48,6 +50,8 @@ public class AnimalsController {
         animalsService.saveAnimal(animal);
         return "redirect:/animals";
     }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/animals/delete/{id_animals}")
     public String deleteAnimal(@PathVariable Long id_animals){
         animalsService.deleteAnimal(id_animals);

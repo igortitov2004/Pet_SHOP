@@ -20,7 +20,8 @@ public class SuppliesService {
     public final AccessoriesService accessoriesService;
 
     public List<SuppliesModel> listSupplies(String dateOfSuppl) {
-        if (dateOfSuppl != null) return suppliesRepository.findSuppliesModelByDateOfSupplContaining(dateOfSuppl);
+        if (dateOfSuppl != null)
+            return suppliesRepository.findSuppliesModelByDateOfSupplContaining(dateOfSuppl);
         return suppliesRepository.findAll();
     }
 

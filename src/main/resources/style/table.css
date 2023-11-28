@@ -12,7 +12,7 @@ table{
     border: 1px solid rgb(0, 0, 0);
 }
 .tbl-content{
-    height:300px;
+    max-height:300px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgb(0, 0, 0);
@@ -42,7 +42,7 @@ td{
 
 body{
     background: -webkit-linear-gradient(left, #ffffff, #e9f6fa);
-    background: linear-gradient(to right, #cbffe7, #c6f8ff);
+    background: linear-gradient(to right, #d3fce5, #daf9ff);
     font-family: 'Roboto', sans-serif;
 }
 section{

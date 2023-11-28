@@ -36,12 +36,14 @@ public class FeedsController {
         model.addAttribute("feeds", feedsService.getFeedById(id_feeds));
         return "feeds-info";
     }
-
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_CASHIER')")
     @PostMapping("/feeds/delete/{id_feeds}")
     public String deleteFeed(@PathVariable Long id_feeds){
         feedsService.deleteFeed(id_feeds);
         return "redirect:/feeds";
     }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/feeds/create")
     public String startCreateFeed(@ModelAttribute("newFeed") FeedsModel feed, Model model){
         model.addAttribute("animals",animalsService.listAnimals(null));
@@ -52,6 +54,8 @@ public class FeedsController {
         feed.setWeightOfFeed(0);
         return "feed-creation";
     }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/feeds/create")
     public String createFeed(@Valid @ModelAttribute("newFeed") FeedsModel feed, BindingResult bindingResult,Model model){
         feedValidator.validate(feed,bindingResult);
@@ -77,13 +81,11 @@ public class FeedsController {
         modifiedFeed.setPriceOfFeed(feed.getPriceOfFeed());
         feedValidator.validate(modifiedFeed,bindingResult);
         if(bindingResult.hasErrors()){
-            // Воняет!!! Нужно как-то сократить
             feed.setNameOfFeed(modifiedFeed.getNameOfFeed());
             feed.setPriceOfFeed(modifiedFeed.getPriceOfFeed());
             feed.setWeightOfFeed(modifiedFeed.getWeightOfFeed());
             feed.setManufacturerOfFeed(modifiedFeed.getManufacturerOfFeed());
             feed.setAnimal(modifiedFeed.getAnimal());
-            // До этого
             model.addAttribute("editFeedErr","Такой корм с этой стоимостью уже существует!");
             return "edit-feed";
         }

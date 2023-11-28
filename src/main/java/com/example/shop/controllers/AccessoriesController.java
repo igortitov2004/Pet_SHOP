@@ -39,6 +39,8 @@ public class AccessoriesController {
         model.addAttribute("accessor", accessoriesService.getAccessorById(id_accessories));
         return "accessor-info";
     }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/accessories/create")
     public String startCreateAccessor(@ModelAttribute("newAccessor") AccessoriesModel accessor,Model model){
         model.addAttribute("animals",animalsService.listAnimals(null));
@@ -47,6 +49,7 @@ public class AccessoriesController {
         accessor.setManufacturerOfAccessor("");
         return "accessor-creation";
     }
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/accessories/create")
     public String createAccessor(@Valid @ModelAttribute("newAccessor") AccessoriesModel accessor, BindingResult bindingResult,Model model){
         accessorValidator.validate(accessor,bindingResult);
@@ -58,7 +61,7 @@ public class AccessoriesController {
         accessoriesService.saveAccessor(accessor);
         return "redirect:/accessories";
     }
-
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_CASHIER')")
     @PostMapping("/accessories/delete/{id_accessories}")
     public String deleteAccessor(@PathVariable Long id_accessories){
         accessoriesService.deleteAccessor(id_accessories);

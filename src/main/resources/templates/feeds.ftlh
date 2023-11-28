@@ -20,12 +20,12 @@
 </form>
 <hr>
 <#if feeds?has_content>
-    <section style="margin-left: 10px; width: 1450px" >
+    <section style="margin-left: 10px; width: 1290px" >
         <div class="tbl-header">
             <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                 <tr>
-                    <th> ID корма </th>
+                    <th style="width: 100px"> ID корма </th>
                     <th> Название </th>
                     <th> Животное </th>
                     <th> Стоимость </th>
@@ -45,7 +45,7 @@
                 <tbody>
                 <#list feeds as feed>
                 <tr>
-                    <td style="text-align: center">${feed.id_feeds}</td>
+                    <td style="text-align: center; width: 100px">${feed.id_feeds}</td>
                     <td>${feed.nameOfFeed}</td>
                     <#if feed.animal??>
                         <td>${feed.animal.kindOfAnimal}<br>(${feed.animal.breed.breed})</td>

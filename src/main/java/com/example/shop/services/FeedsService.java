@@ -21,7 +21,6 @@ public class FeedsService {
     public void saveFeed(FeedsModel feeds){
         feedsRepository.save(feeds);
     }
-
     public void update(Long id, FeedsModel feedsModel){
         FeedsModel feed = getFeedById(id);
         feed.setPriceOfFeed(feedsModel.getPriceOfFeed());

@@ -18,12 +18,12 @@
 </form>
 <hr>
 <#if supplies?has_content>
-    <section style="margin-left: 10px; width: 1000px" >
+    <section style="margin-left: 10px; width: 767px" >
         <div class="tbl-header">
             <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                 <tr>
-                    <th> ID поставки </th>
+                    <th style="width: 100px"> ID поставки </th>
                     <th> Работник </th>
                     <th> Дата поставки </th>
                     <th> Подробная инормация </th>
@@ -36,7 +36,7 @@
                 <tbody>
                 <#list supplies as supply>
                     <tr>
-                        <td style="text-align: center">${supply.id_supplies}</td>
+                        <td style="width: 100px;text-align: center">${supply.id_supplies}</td>
                         <#if supply.staff_id_for_suppl??>
                             <td>${supply.staff_id_for_suppl.fullName}</td>
                         <#else> <td> Работник уволен </td>
@@ -49,7 +49,7 @@
             </table>
         </div>
     </section>
-    <#else> В данный день поставки не оформлялись!
+    <#else> <h4 style="color: red">В данный день поставки не оформлялись!</h4><br><br>
 </#if>
 <br>
 <#if user.isDirector() || user.isManager()>

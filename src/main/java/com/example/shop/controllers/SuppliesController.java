@@ -43,7 +43,7 @@ public class SuppliesController {
         return "supplies-info";
     }
 
-
+    @PreAuthorize("hasAnyAuthority('ROLE_DIRECTOR','ROLE_MANAGER')")
     @PostMapping("/supplies/startCreation")
     public String startSupplyCreation(Model model) {
         supply = new SuppliesModel();
@@ -66,7 +66,7 @@ public class SuppliesController {
 //
 //    }
 
-
+    @PreAuthorize("hasAnyAuthority('ROLE_DIRECTOR','ROLE_MANAGER')")
     @GetMapping("/supplies/create")
     public String supplyCreation(Model model) {
         model.addAttribute("supply", supply);

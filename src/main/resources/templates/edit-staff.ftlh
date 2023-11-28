@@ -3,47 +3,73 @@
 <#import "spring.ftl" as spring />
 <head>
     <title>SHOP</title>
+    <link rel="stylesheet" type="text/css" href="/style/actionHref.css">
+    <link rel="stylesheet" type="text/css" href="/style/actionButton.css">
     <hr>
-    <h3><a href="/staff/${staff.id_staff}" style="text-align: center; text-decoration: none"> Назад </a></h3>
+    <div class="ref"><a href="/staff/${staff.id_staff}" style="text-align: center; text-decoration: none"> Назад </a></div>
     <hr>
 </head>
 <body>
-<h3>Изменение данных работника</h3>
+<h3 style="margin-left: 10px">Изменение данных работника</h3>
 <hr>
 <form action="/staff/${staff.id_staff}/edit" method="post" enctype="multipart/form-data">
-    ФИО:<input type="text"  value="${staff.fullName}" required name="fullName"/><br>
-    <#if err??>
-        <div style="color: red">
-            <@spring.bind "staff.fullName"/>
-            <@spring.showErrors "<br>"/>
-        </div>
-    </#if>
-    <br>
-    Номер паспорта:<input type="text"  value="${staff.numOfPassport}" required name="numOfPassport"/><br>
-    <#if err??>
-        <div style="color: red">
-        <@spring.bind "staff.numOfPassport"/>
-        <@spring.showErrors "<br>"/>
-    </div>
-    </#if>
-    <br>
-    Номер телефона:<input type="text" value="${staff.telNumber}" required name="telNumber"/><br>
-    <#if err??>
-        <div style="color: red">
-        <@spring.bind "staff.telNumber"/>
-        <@spring.showErrors "<br>"/>
-    </div>
-    </#if>
-    <br>
-    Стаж работы:<input type="number" value="${staff.experience}" required name="experience" min="0" max="50"/><br><br>
-    Должность:
-        <select name="job_title" required >
-            <option value="${staff.job_title}" >${staff.job_title}</option>
-                <option value="Менеджер"> Менеджер</option>
-                <option value="Продавец-кассир"> Продавец-кассир</option>
-        </select><br><br>
+    <table style="margin-left: 10px">
+        <tr style="height: 20px">
+            <td><label for="a">ФИО:</label></td>
+            <td><input  type="text" id="a" style="width: 180px" value="${staff.fullName}"
+                        required name="fullName"/></td>
+            <#if err??>
+                <td>
+                    <div style="color: red">
+                        <@spring.bind "staff.fullName"/>
+                        <@spring.showErrors "<br>"/>
+                    </div>
+                </td>
+            </#if>
+        </tr>
+        <tr>
+            <td><label for="b">Номер паспорта:</label></td>
+            <td><input type="text" style="width: 180px" id="b" value="${staff.numOfPassport}" required
+                       name="numOfPassport" minlength="9" maxlength="9"/></td>
+            <#if err??>
+                <td>
+                    <div style="color: red">
+                        <@spring.bind "staff.numOfPassport"/>
+                        <@spring.showErrors "<br>"/>
+                    </div>
+                </td>
+
+            </#if>
+        </tr>
+        <tr>
+            <td><label for="c">Номер телефона:</label></td>
+            <td><input type="text" style="width: 180px" id="c" value="${staff.telNumber}" required
+                       name="telNumber" minlength="13" maxlength="13"/></td>
+            <#if err??>
+                <td>
+                    <div style="color: red">
+                        <@spring.bind "staff.telNumber"/>
+                        <@spring.showErrors "<br>"/>
+                    </div>
+                </td>
+            </#if>
+        </tr>
+        <tr>
+            <td><label for="d">Стаж работы:</label></td>
+            <td><input type="number" style="width: 180px" value="${staff.experience}" required
+                       name="experience" min="0" max="50"  id="d"/></td>
+        </tr>
+        <tr>
+            <td><label for="e">Должность:</label></td>
+            <td><select name="job_title" style="width: 187px" required id="e">
+                    <option value="">Выберите</option>
+                    <option value="Менеджер"> Менеджер</option>
+                    <option value="Продавец-кассир"> Продавец-кассир</option>
+                </select></td>
+        </tr>
+    </table><br>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Применить"/>
+    <div class="action"><input type="submit" value="Применить"/></div>
 </form>
 </body>
 </html>

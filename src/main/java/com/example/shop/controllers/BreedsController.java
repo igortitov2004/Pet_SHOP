@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('ROLE_DIRECTOR','ROLE_MANAGER','ROLE_CASHIER')")
 public class BreedsController {
     private final BreedsService breedsService;
     private final BreedValidator breedValidator;
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @GetMapping("/breed/create")
     public String startCreateBreed(@ModelAttribute("newBreed") BreedsModel breed){
         breed.setBreed("");
         return "breed-creation";
     }
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     @PostMapping("/breed/create")
     public String createBreed(@Valid @ModelAttribute("newBreed") BreedsModel breed, BindingResult bindingResult, Model model){
         breedValidator.validate(breed,bindingResult);

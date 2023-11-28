@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>SHOP</title>
-<#--    <link rel="stylesheet" type="text/css" href="/style/animals.css">-->
     <link rel="stylesheet" type="text/css" href="/style/actionHref.css">
     <link rel="stylesheet" type="text/css" href="/style/actionButton.css">
     <link rel="stylesheet" type="text/css" href="/style/removeButton.css">
     <link rel="stylesheet" type="text/css" href="/style/searchButton.css">
     <link rel="stylesheet" type="text/css" href="/style/table.css">
     <link rel="stylesheet" type="text/css" href="/style/tableJS.js">
+
     <hr>
     <h3><div class="ref"><a href="/" style="text-align: center; text-decoration: none"> Главная </a></div></h3>
     <hr>
@@ -19,18 +19,17 @@
        <div class="search"> <input type="submit" value="Поиск"/></div>
 </form>
 <hr>
-
 <#if animals?has_content>
-    <section style="margin-left: 10px">
+    <section style="margin-left: 10px;width: 933px">
         <div class="tbl-header">
             <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                 <tr>
-                    <th> ID животного </th>
+                    <th style="width: 100px"> ID животного </th>
                     <th> Вид </th>
                     <th> Порода </th>
                     <th> Масса(кг) </th>
-                    <th> Возраст </th>
+                    <th> Возраст(г) </th>
                     <#if user.isManager()>
                         <th> Удаление </th>
                     </#if>
@@ -43,7 +42,7 @@
                 <tbody>
                 <#list animals as animal>
                     <tr>
-                        <td style="text-align: center">${animal.id_animals}</td>
+                        <td style="text-align: center; width: 100px">${animal.id_animals}</td>
                         <td>${animal.kindOfAnimal}</td>
                         <td>${animal.breed.breed}</td>
                         <td style="text-align: center">${animal.weight_of_animal}</td>
@@ -72,6 +71,5 @@
        <div class="action">  <input type="submit" value="Добавить животное"/></div>
     </form>
 </#if>
-
 </body>
 </html>
